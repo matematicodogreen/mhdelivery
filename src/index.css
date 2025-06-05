@@ -1,0 +1,171 @@
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  /* New Theme Colors (Red/Blue Theme) */
+  --theme-color-primary-hex: #D32F2F; /* Red */
+  --theme-color-primary-text-hex: #FFFFFF; /* White for text on primary */
+  --theme-color-secondary-hex: #1976D2; /* Blue */
+  --theme-color-secondary-text-hex: #FFFFFF; /* White for text on secondary */
+  --theme-color-accent-hex: #FF5252; /* Lighter Red for accents */
+  --theme-color-accent-text-hex: #FFFFFF; /* White for text on accent */
+  --theme-bg-gradient-start-hex: #FFEBEE; /* Very light red */
+  --theme-bg-gradient-end-hex: #E3F2FD; /* Very light blue */
+  --theme-text-main-hex: #212121; /* Dark Gray for Main text color */
+  --theme-text-muted-hex: #757575; /* Medium Gray for Muted text color */
+  --theme-card-bg-hex: #FFFFFF;
+  --theme-card-foreground-hex: #212121;
+  --theme-input-border-hex: #BDBDBD; /* Light Gray for borders */
+  --theme-ring-hex: #D32F2F; /* Red for focus rings */
+
+  /* Shadcn UI variables, mapped to theme colors */
+  --background: 0 0% 100%; 
+  --foreground: var(--theme-text-main-hex);
+  
+  --card: var(--theme-card-bg-hex);
+  --card-foreground: var(--theme-card-foreground-hex);
+  
+  --popover: var(--theme-card-bg-hex);
+  --popover-foreground: var(--theme-card-foreground-hex);
+  
+  --primary: var(--theme-color-primary-hex);
+  --primary-foreground: var(--theme-color-primary-text-hex);
+  
+  --secondary: var(--theme-color-secondary-hex);
+  --secondary-foreground: var(--theme-color-secondary-text-hex);
+  
+  --muted: var(--theme-text-muted-hex); 
+  --muted-foreground: var(--theme-text-muted-hex);
+  
+  --accent: var(--theme-color-accent-hex);
+  --accent-foreground: var(--theme-color-accent-text-hex);
+  
+  --destructive: 0 84.2% 60.2%; /* Default shadcn destructive red */
+  --destructive-foreground: 0 0% 98%;
+  
+  --border: var(--theme-input-border-hex);
+  --input: var(--theme-input-border-hex);
+  --ring: var(--theme-ring-hex);
+  
+  --radius: 0.5rem;
+}
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+  body {
+    @apply bg-background text-foreground;
+    font-feature-settings: "rlig" 1, "calt" 1;
+    background-image: linear-gradient(to bottom right, var(--theme-bg-gradient-start-hex), var(--theme-bg-gradient-end-hex));
+  }
+}
+
+@layer components {
+  .gradient-primary-bg {
+    background: linear-gradient(135deg, var(--theme-color-primary-hex) 0%, color-mix(in srgb, var(--theme-color-primary-hex), black 10%) 100%);
+    color: var(--theme-color-primary-text-hex);
+  }
+
+  .gradient-secondary-bg {
+    background: linear-gradient(135deg, var(--theme-color-secondary-hex) 0%, color-mix(in srgb, var(--theme-color-secondary-hex), black 10%) 100%);
+    color: var(--theme-color-secondary-text-hex);
+  }
+  
+  .glass-effect {
+    backdrop-filter: blur(16px);
+    background: color-mix(in srgb, var(--theme-card-bg-hex), transparent 30%);
+    border: 1px solid color-mix(in srgb, var(--theme-input-border-hex), transparent 50%);
+  }
+  
+  .card-hover {
+    transition: all 0.3s ease;
+  }
+  
+  .card-hover:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.08), 0 10px 10px -5px rgba(0, 0, 0, 0.03);
+  }
+  
+  .animate-float {
+    animation: float 6s ease-in-out infinite;
+  }
+  
+  @keyframes float {
+    0%, 100% { transform: translateY(0px); }
+    50% { transform: translateY(-10px); }
+  }
+  
+  .text-gradient-primary {
+    background: linear-gradient(135deg, var(--theme-color-primary-hex), var(--theme-color-accent-hex));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+  
+  .text-gradient-secondary {
+    background: linear-gradient(135deg, var(--theme-color-secondary-hex), color-mix(in srgb, var(--theme-color-secondary-hex), white 30%));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+
+  .button-primary {
+    @apply bg-primary text-primary-foreground hover:opacity-90;
+  }
+
+  .button-secondary {
+    @apply bg-secondary text-secondary-foreground hover:opacity-90;
+  }
+}
+
+.cart-badge {
+  animation: pulse 2s infinite;
+  background-color: var(--theme-color-primary-hex);
+  color: var(--theme-color-primary-text-hex);
+}
+
+@keyframes pulse {
+  0%, 100% {
+    opacity: 1;
+    transform: scale(1);
+  }
+  50% {
+    opacity: .8;
+    transform: scale(1.1);
+  }
+}
+
+.product-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  gap: 1.5rem;
+}
+
+@media (max-width: 640px) {
+  .product-grid {
+    grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+    gap: 1rem;
+  }
+}
+
+.icon-globe {
+  width: 4rem; /* 64px */
+  height: 4rem; /* 64px */
+  border-radius: 9999px; /* full */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-left: auto;
+  margin-right: auto;
+  margin-bottom: 1rem; /* mb-4 */
+  overflow: hidden; /* To ensure image fills globe */
+}
+
+.icon-globe img-replace, .icon-globe img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover; /* Ensures the image covers the area, might crop */
+}
